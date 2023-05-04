@@ -8,18 +8,14 @@ const Navbar = () => {
   let Links = [
     { name: "Home", link: "/" },
     { name: "Talent", link: "/talent" },
+    { name: "Contact Us", link: "/contact" },
   ];
   let [open, setOpen] = useState(false);
   return (
     <div className="border-b-[1px] border-gray-100 w-full fixed top-0 left-0 font-sofia">
       <div className="md:flex items-center justify-between bg-white py-4 md:px-10 px-7">
         <div>
-          <Image
-            src={BrandLogo}
-            alt="Brandlogo"
-            width={150}
-            height={150}
-          />
+          <Image src={BrandLogo} alt="Brandlogo" width={150} height={150} />
         </div>
         <div
           onClick={() => setOpen(!open)}

@@ -1,10 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchFilteredPhotographers, fetchPhotographers } from "./services"
+import { fetchFilteredPhotographers, fetchPhotographers, fetchPhotographerDetails } from "./services"
 
 const initialState = {
     photographers: [],
     selectedProfession: null,
     filteredPhotographers: [],
+    photographerDetails: [],
+    photographerId: null,
     status: "idle",
     error: null
 }
@@ -15,6 +17,7 @@ const photographersSlice = createSlice({
     reducers: {
         setselectedProfession: (state, action) => {
             state.selectedProfession = action.payload;
+            state.photographerId = action.payload;
         }
     },
     extraReducers: {
@@ -38,6 +41,18 @@ const photographersSlice = createSlice({
             state.photographers = action.payload;
           },
           [fetchPhotographers.rejected]: (state, action) => {
+            state.status = 'failed';
+            state.error = action.error.message;
+          },
+          [fetchPhotographerDetails.pending ]: (state) => {
+            state.status = 'loading';
+            state.error = null;
+          },
+          [fetchPhotographerDetails.fulfilled]: (state, action) => {
+            state.status = 'succeeded';
+            state.photographerDetails = action.payload;
+          },
+          [fetchPhotographerDetails.rejected]: (state, action) => {
             state.status = 'failed';
             state.error = action.error.message;
           },

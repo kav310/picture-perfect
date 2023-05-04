@@ -4,35 +4,44 @@ import {
   fetchFilteredPhotographers,
   fetchPhotographers,
 } from "../../redux/services";
+import Button from "@/components/layout/Button";
+import { useRouter } from "next/router";
 
 const index = () => {
   const [selectedProfession, setSelectedProfession] = useState(null);
   const dispatch = useDispatch<any>();
-  const { photographers, filteredPhotographers } = useSelector((state: any) => state.photographers);
-  const [rendingData, setRendingData] = useState<any>([])
+  const router = useRouter();
+  const { photographers, filteredPhotographers } = useSelector(
+    (state: any) => state.photographers
+  );
+  const [rendingData, setRendingData] = useState<any>([]);
 
   const handleChange = (event: any) => {
     setSelectedProfession(event.target.value);
   };
 
+  const handleOnClick = (id: number) => {
+    console.log(id, "hello");
+    router.push(`/talent/${id}`)
+  };
+
   useEffect(() => {
-    if(selectedProfession != null) {
-      dispatch(fetchFilteredPhotographers(selectedProfession))
+    if (selectedProfession != null) {
+      dispatch(fetchFilteredPhotographers(selectedProfession));
     }
-  },[dispatch, selectedProfession])
+  }, [dispatch, selectedProfession]);
 
   useEffect(() => {
     dispatch(fetchPhotographers());
   }, [dispatch]);
 
   useEffect(() => {
-    if(filteredPhotographers.length > 0) {
-      setRendingData(filteredPhotographers)
-    }else {
-      setRendingData(photographers)
+    if (filteredPhotographers.length > 0) {
+      setRendingData(filteredPhotographers);
+    } else {
+      setRendingData(photographers);
     }
-  }, [filteredPhotographers, photographers])
-
+  }, [filteredPhotographers, photographers]);
 
   return (
     <div className="pt-6 pb-12">
@@ -74,6 +83,9 @@ const index = () => {
               <div>{item.description}</div>
               <div className="text-sm text-gray-700 uppercase tracking-wide font-semibold">
                 {item.loction}
+              </div>
+              <div onClick={() => handleOnClick(item.id)}>
+                <Button>View Details</Button>
               </div>
             </div>
           </div>

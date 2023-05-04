@@ -23,3 +23,14 @@ export const fetchFilteredPhotographers = createAsyncThunk(
         }
     }
 )
+export const fetchPhotographerDetails = createAsyncThunk(
+    'photographers/fetchPhotographerDetails',
+    async (photographerId: any) => {
+        try {
+            const res = await axios.get(`https://determined-cuff-links-ox.cyclic.app/data/${photographerId}`);
+            return res.data;
+        } catch (error) {
+            console.log(error)
+        }
+    }
+)
