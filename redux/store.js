@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import covidTrackerSlice from "./slice"
+import photographersSlice from "./slice"
 
 const store = configureStore({
     reducer: {
-        covidTracker: covidTrackerSlice
+        photographers: photographersSlice
     }
 })
 

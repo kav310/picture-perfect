@@ -7,7 +7,7 @@ import Image from "next/image";
 const Navbar = () => {
   let Links = [
     { name: "Home", link: "/" },
-    { name: "Talent", link: "/" },
+    { name: "Talent", link: "/talent" },
   ];
   let [open, setOpen] = useState(false);
   return (

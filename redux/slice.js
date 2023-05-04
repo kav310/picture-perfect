@@ -1,50 +1,50 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCountryData, fetchCountries } from "./services"
+import { fetchFilteredPhotographers, fetchPhotographers } from "./services"
 
 const initialState = {
-    countries: [],
-    selectedCountry: null,
-    countryData: null,
+    photographers: [],
+    selectedProfession: null,
+    filteredPhotographers: null,
     status: "idle",
     error: null
 }
 
-const covidTrackerSlice = createSlice({
-    name: "covidTracker",
+const photographersSlice = createSlice({
+    name: "photographers",
     initialState,
     reducers: {
-        setSelectedCountry: (state, action) => {
-            state.selectedCountry = action.payload;
+        setselectedProfession: (state, action) => {
+            state.selectedProfession = action.payload;
         }
     },
     extraReducers: {
-          [fetchCountryData.pending ]: (state) => {
+          [fetchFilteredPhotographers.pending ]: (state) => {
             state.status = 'loading';
           },
-          [fetchCountryData.fulfilled]: (state, action) => {
+          [fetchFilteredPhotographers.fulfilled]: (state, action) => {
             state.status = 'succeeded';
-            state.countryData = action.payload;
+            state.filteredPhotographers = action.payload;
           },
-          [fetchCountryData.rejected]: (state, action) => {
+          [fetchFilteredPhotographers.rejected]: (state, action) => {
             state.status = 'failed';
             state.error = action.error.message;
-            alert('Bir hata oluştu: ' + state.error);
           },
-          [fetchCountries.pending ]: (state) => {
+          [fetchPhotographers.pending ]: (state) => {
             state.status = 'loading';
             state.error = null;
           },
-          [fetchCountries.fulfilled]: (state, action) => {
+          [fetchPhotographers.fulfilled]: (state, action) => {
             state.status = 'succeeded';
-            state.countries = action.payload;
+            console.log(action)
+            state.photographers = action.payload;
           },
-          [fetchCountries.rejected]: (state, action) => {
+          [fetchPhotographers.rejected]: (state, action) => {
             state.status = 'failed';
             state.error = action.error.message;
           },
       }
 })
 
-export const { setSelectedCountry } = covidTrackerSlice.actions
+export const { setselectedProfession } = photographersSlice.actions
 
-export default covidTrackerSlice.reducer
+export default photographersSlice.reducer
