@@ -6,17 +6,34 @@ import {
 } from "../../redux/services";
 
 const index = () => {
+  const [selectedProfession, setSelectedProfession] = useState(null);
   const dispatch = useDispatch<any>();
-  const { photographers } = useSelector((state: any) => state.photographers);
-  console.log(photographers);
+  const { photographers, filteredPhotographers } = useSelector((state: any) => state.photographers);
+  const [rendingData, setRendingData] = useState<any>([])
 
   const handleChange = (event: any) => {
-    console.log(event.target.value);
+    setSelectedProfession(event.target.value);
   };
+
+  useEffect(() => {
+    if(selectedProfession != null) {
+      dispatch(fetchFilteredPhotographers(selectedProfession))
+    }
+  },[dispatch, selectedProfession])
 
   useEffect(() => {
     dispatch(fetchPhotographers());
   }, [dispatch]);
+
+  useEffect(() => {
+    if(filteredPhotographers.length > 0) {
+      setRendingData(filteredPhotographers)
+    }else {
+      setRendingData(photographers)
+    }
+  }, [filteredPhotographers, photographers])
+
+
   return (
     <div className="pt-6 pb-12">
       <h2 className="text-center uppercase text-4xl xl:text-5xl">Top 5</h2>
@@ -27,7 +44,7 @@ const index = () => {
         Select an option
       </label>
       <select
-        id="countries"
+        onChange={handleChange}
         className="bg-gray-50 mx-auto border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-min p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
       >
         <option selected>Filter by profession</option>
@@ -39,7 +56,7 @@ const index = () => {
       </select>
 
       <div className="container w-100 lg:w-4/5 mx-auto flex flex-col">
-        {photographers.map((item: any, index: number) => (
+        {rendingData.map((item: any, index: number) => (
           <div
             key={index + "-" + item.id}
             className="flex flex-col md:flex-row overflow-hidden bg-white rounded-lg b mt-4 w-100 mx-2  border-solid border-2 border-gray-100"

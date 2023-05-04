@@ -4,7 +4,7 @@ import { fetchFilteredPhotographers, fetchPhotographers } from "./services"
 const initialState = {
     photographers: [],
     selectedProfession: null,
-    filteredPhotographers: null,
+    filteredPhotographers: [],
     status: "idle",
     error: null
 }
@@ -35,7 +35,6 @@ const photographersSlice = createSlice({
           },
           [fetchPhotographers.fulfilled]: (state, action) => {
             state.status = 'succeeded';
-            console.log(action)
             state.photographers = action.payload;
           },
           [fetchPhotographers.rejected]: (state, action) => {

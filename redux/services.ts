@@ -13,13 +13,13 @@ export const fetchPhotographers = createAsyncThunk(
     }
 )
 export const fetchFilteredPhotographers = createAsyncThunk(
-    // 'covidTracker/fetchCountryData',
-    // async (selectedCountry) => {
-    //     try {
-    //         const res = await axios.get(`${process.env.BASE_URL}/country/${selectedCountry}`);
-    //         return res.data[res.data.length - 1];
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
+    'photographers/fetchFilteredPhotographers',
+    async (selectedProfession: String) => {
+        try {
+            const res = await axios.get(`https://determined-cuff-links-ox.cyclic.app/data?professional=${selectedProfession}`);
+            return res.data;
+        } catch (error) {
+            console.log(error)
+        }
+    }
 )
