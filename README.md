@@ -25,7 +25,7 @@ In general, picture perfect websites have the potential to be an extremely helpf
 Whether you are organising a wedding, presenting a new product, or simply want to record memories with friends and family, a website that allows you to hire a photographer will connect you with the most qualified photographer for your requirements and assist you in accomplishing your objectives.
 
 
-Next is 
+Nextjs 
 Tailwind css
 Redux tool kit 
 React icons
